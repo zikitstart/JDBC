@@ -4,23 +4,25 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "gender")
     private String gender;
-    @Column(name = "age")
     private int age;
-    @Column(name = "city_id")
-    private Integer city;
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn( name = "city_id")
+    private City city;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String gender, int age, int city) {
+    public Employee(Integer id) {
+        this.id = id;
+    }
+
+    public Employee(String firstName, String lastName, String gender, int age, City city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -28,7 +30,7 @@ public class Employee {
         this.city = city;
     }
 
-    public Employee(int id, String firstName, String lastName, String gender, int age, int city) {
+    public Employee(Integer id, String firstName, String lastName, String gender, int age, City city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,7 +39,7 @@ public class Employee {
         this.city = city;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -57,11 +59,11 @@ public class Employee {
         return age;
     }
 
-    public int getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -81,7 +83,7 @@ public class Employee {
         this.age = age;
     }
 
-    public void setCity(int city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -93,7 +95,7 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
-                ", city_id=" + city +
+                ", " + city +
                 '}';
     }
 }
